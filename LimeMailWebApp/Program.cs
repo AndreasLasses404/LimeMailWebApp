@@ -13,6 +13,7 @@ namespace LimeMailWebApp
     {
         public static void Main(string[] args)
         {
+            Services.MailServices.GetMessages();
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -12,6 +12,7 @@ namespace LimeMailWebApp.Services
 {
     public class MailServices : IMailMessageRepository
     {
+        public static List<Message> messages = new List<Message>();
         public bool Delete(int id)
         {
             throw new NotImplementedException();
@@ -24,24 +25,28 @@ namespace LimeMailWebApp.Services
 
         public IEnumerable<MailMessage> GetAll()
         {
-            var message = GetMessages();
-            return message.Take(100);
+            var getMessages = messages.Take(100);
+            return getMessages;
         }
 
         public MailMessage GetById(int id)
         {
-            var message = GetMessages();
-            return message.Where(i => i.MailMessageId == id).FirstOrDefault();
+            var getMessageById = messages.Where(i => i.MailMessageId == id).FirstOrDefault();
+            return getMessageById;
         }
 
-        public IEnumerable<Message> GetMessages()
+        public static void GetMessages()
         {
             using (StreamReader r = new StreamReader("mail-messages.json"))
             {
                 string mail = r.ReadToEnd();
                 var message = JsonConvert.DeserializeObject<ResultList>(mail, new CustomJsonConverter());
-
-                return message.mailMessages;
+                foreach(var m in message.mailMessages)
+                {
+                    Message mess = new();
+                    mess = m;
+                    messages.Add(mess);
+                }
             }
         }
     }

@@ -7,6 +7,6 @@ namespace LimeMailWebApp.Models
 {
     public class ResultList
     {
-        public Message[] mailMessages { get; set; }
+        public List<Message> mailMessages { get; set; }
     }
 }

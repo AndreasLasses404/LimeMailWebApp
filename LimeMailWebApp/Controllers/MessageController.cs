@@ -5,11 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LimeMailWebApp.Models;
 
 namespace LimeMailWebApp.Controllers
 {
     public class MessageController : Controller
     {
+
 
         private readonly IMailMessageRepository _mailRepo;
 
