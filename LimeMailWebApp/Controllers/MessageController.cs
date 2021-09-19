@@ -21,10 +21,19 @@ namespace LimeMailWebApp.Controllers
         }
 
         // GET: MessageController
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            IEnumerable<MailMessage> mails = _mailRepo.GetAll();
-            return View(mails);
+            if (string.IsNullOrEmpty(name))
+            {
+                IEnumerable<MailMessage> mails = _mailRepo.GetAll();
+                return View(mails);
+            }
+            else
+            {
+                var foundMails = _mailRepo.Find(i => i.Name.ToUpper().Contains(name.ToUpper()));
+                return View(foundMails);
+            }
+
         }
 
         // GET: MessageController/Details/5

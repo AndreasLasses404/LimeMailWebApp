@@ -1,14 +1,26 @@
-﻿@model IEnumerable<LimeMailWebApp.Models.Message>
-
+﻿@model IEnumerable<Lime.Domain.MailMessage>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+    </svg>
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
+<form class="searchform" asp-action="Index">
+    <div class="input-group md-form form-sm form-2 pl-0">
+        <input name="name" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+        <div class="input-group-append">
+            <span class="input-group-text" id="textboxsearch">
+                <button type="submit">
+                    <i class="bi bi-search">Search</i>
+                </button>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+            </span>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -37,11 +49,19 @@
                 @Html.DisplayFor(modelItem => item.IsSent)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MailMessageId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MailMessageId }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.MailMessageId */ })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section scripts{ 
+<script>
+    $(function () {
+        $("textboxsearch").click(function () {
+            $("Form").submit();
+        })
+    });
+</script>
+}

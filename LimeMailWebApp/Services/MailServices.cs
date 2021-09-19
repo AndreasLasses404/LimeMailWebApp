@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using Lime.Domain;
 using LimeMailWebApp.Models;
 using Newtonsoft.Json;
+using LimeMailWebApp;
+using LimeMailWebApp.Controllers;
 
 namespace LimeMailWebApp.Services
 {
     public class MailServices : IMailMessageRepository
     {
-        public static List<Message> messages = new List<Message>();
+        private static List<Message> messages = new List<Message>();
+
         public bool Delete(int id)
         {
             throw new NotImplementedException();
@@ -20,7 +23,9 @@ namespace LimeMailWebApp.Services
 
         public IEnumerable<MailMessage> Find(Expression<Func<MailMessage, bool>> filter)
         {
-            throw new NotImplementedException();
+            var mails = messages.Where(filter.Compile()).ToList();
+
+            return mails;
         }
 
         public IEnumerable<MailMessage> GetAll()
@@ -35,19 +40,20 @@ namespace LimeMailWebApp.Services
             return getMessageById;
         }
 
-        public static void GetMessages()
+        public static IEnumerable<MailMessage> GetMessages()
         {
             using (StreamReader r = new StreamReader("mail-messages.json"))
             {
                 string mail = r.ReadToEnd();
                 var message = JsonConvert.DeserializeObject<ResultList>(mail, new CustomJsonConverter());
-                foreach(var m in message.mailMessages)
+                foreach (var m in message.mailMessages)
                 {
-                    Message mess = new();
-                    mess = m;
-                    messages.Add(mess);
+                    m.Id = m.MailMessageId;
+                    messages.Add(m);
                 }
+                return message.mailMessages;
             }
+            
         }
     }
 }
