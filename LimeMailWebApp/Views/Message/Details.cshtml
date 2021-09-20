@@ -37,6 +37,23 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+
+
+        <span id="confirmDeleteSpan_@Model.Id" style="display:none">
+            <span>Are you sure you want to delete?</span>
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <a href="#" class="btn btn-primary" onclick="confirmDelete('@Model.Id', false)">No</a>
+        </span>
+
+        <span id="deleteSpan_@Model.Id">
+            <a href="#" class="btn btn-danger"
+               onclick="confirmDelete('@Model.Id', true)">Delete</a>
+        </span>
+    </form>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts{
+    <script src="~/js/site.js"></script>
+ }

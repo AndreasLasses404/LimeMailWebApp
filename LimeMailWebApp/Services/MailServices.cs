@@ -14,12 +14,22 @@ namespace LimeMailWebApp.Services
 {
     public class MailServices : IMailMessageRepository
     {
-        private static List<Message> messages = new List<Message>();
+        public static List<Message> messages = new();
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var deleteMail = messages.Where(i => i.Id == id).FirstOrDefault();
+            if(deleteMail != null)
+            {
+                messages.Remove(deleteMail);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
 
         public IEnumerable<MailMessage> Find(Expression<Func<MailMessage, bool>> filter)
         {
@@ -55,5 +65,7 @@ namespace LimeMailWebApp.Services
             }
             
         }
+
+
     }
 }
