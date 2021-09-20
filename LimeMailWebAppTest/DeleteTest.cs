@@ -1,40 +1,48 @@
+using Lime.Domain;
+using LimeMailWebApp.Controllers;
+using LimeMailWebApp.Models;
+using LimeMailWebApp.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using LimeMailWebApp.Controllers;
-using LimeMailWebApp.Services;
-using Lime.Domain;
 
 namespace LimeMailWebApp.UnitTests
 {
     [TestClass]
     public class DeleteTest
     {
+        [TestInitialize]
+        public void StartupTest()
+        {
+            MailServices.GetMessages();
+        }
+
+
+
         [TestMethod]
         public void DeleteSuccessTest()
         {
-            int idExist = 175;
-            int idNull = 9999;
+            int idExist = 91;
             MailServices mailServices = new();
-            MessageController messageController = new(mailServices);
 
-            var deleted = messageController.Delete(idExist);
-
-
-            Assert.IsNotNull(deleted);
-
-            try
-            {
-                var notFound = messageController.Delete(idNull);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
-
+            var deleted = mailServices.Delete(idExist);
+            Assert.IsTrue(deleted);
 
         }
+
+        [TestMethod]
+        public void DeleteFailedTest()
+        {
+            int idNull = 9999;
+            MailServices mailServices = new();
+
+            var notFound = mailServices.Delete(idNull);
+            Assert.IsFalse(notFound);
+        }
+
     }
 }
