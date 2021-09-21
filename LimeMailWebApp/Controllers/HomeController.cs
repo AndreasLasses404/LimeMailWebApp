@@ -21,8 +21,7 @@ namespace LimeMailWebApp.Controllers
         // GET: HomeController
         public ActionResult Index()
         {
-
-            return View();
+            return RedirectToAction("Index", "Message");
         }
 
         // GET: HomeController/Details/5

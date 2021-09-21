@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Lime.Domain.MailMessage>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-    </svg>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -11,14 +9,18 @@
     <div class="input-group md-form form-sm form-2 pl-0">
         <input name="name" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
         <div class="input-group-append">
-                <button type="submit">
-                    <i class="bi bi-search">Search</i>
-                </button>
+            <button class="submitButton" type="submit">
+                <i class="bi bi-search" id="searchIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </i>
+            </button>
         </div>
     </div>
 </form>
 
-<table class="table">
+<table class="table" id="itemsTable">
     <thead>
         <tr>
             <th>
@@ -34,21 +36,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSent)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr id="itemsRow">
+                <td id="itemDetail">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td id="itemDetail">
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td id="itemDetail">
+                    @if (item.IsSent == true)
+                    {
+                        <p>YES</p>
+                    }
+                    else
+                    {
+                        <p>NO</p>
+                    }
+                </td>
+                <td id="itemDetails">
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @style = "rgb(212,199,114)" })
+                </td>
+            </tr>
+
+        }
     </tbody>
 </table>

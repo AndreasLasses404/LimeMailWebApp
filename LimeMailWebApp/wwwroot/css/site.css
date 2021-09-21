@@ -18,10 +18,29 @@ a {
   border-color: #1861ac;
 }
 
+.submitButton{
+    width: 75px;
+}
+
+#itemsRow {
+    background-color: rgb(155,125,188);
+}
+
+#itemDetails {
+   
+}
+
+#itemDetail {
+}
+
+td.details {
+    color: rgb(225,100,7);
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
@@ -58,9 +77,18 @@ html {
   min-height: 100%;
 }
 
+a {
+    color: rgb(212,199,114);
+}
+
+    a:hover {
+        color: rgb(225,100,7);
+    }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: rgb(212,199,114);
 }
 .footer {
   position: absolute;
